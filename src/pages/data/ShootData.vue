@@ -96,6 +96,7 @@
                       :key="i.id"
                       :label="i.value"
                       :value="i.value"
+                      :disabled="i.value == '采集数量'"
                     ></el-option>
                   </el-select>
 
@@ -217,7 +218,7 @@
             </template>
           </el-table-column>
 
-          <template v-show="sumKey">
+          <template v-if="sumKey">
             <el-table-column
               v-for="(item,index) in day"
               :key="index"

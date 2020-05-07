@@ -1,25 +1,8 @@
 <template>
   <div class="user-wrapper">
     <m-madd :con="addData" ref="addUser" />
-    <!-- <m-mrest :con="dialogKey1" /> -->
     <div class="user-content">
       <m-crums :con="crumsData" />
-      <!-- 
-      <el-dialog
-        :visible.sync="centerDialogVisible"
-        width="15%"
-        center
-        :show-close="false"
-        class="check"
-      >
-        <div class="suc-box">
-          <span class="suc-w">重置的密码为:123456</span>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="sure">确 定</el-button>
-        </span>
-      </el-dialog>-->
-
       <div class="user__box">
         <div class="user__tree">
           <div class="userTree__box">
@@ -28,15 +11,14 @@
           <el-tree
             :data="data1"
             :props="defaultProps"
-            node-key="parentId"
-            :default-expanded-keys="['','1.']"
+            node-key="expanded"
+            :default-expanded-keys="['1.']"
             :highlight-current="true"
             :expand-on-click-node="false"
             ref="tree1"
             @node-click="choseOne"
           ></el-tree>
         </div>
-
         <div class="user__Rcon">
           <div class="user__title">用户列表</div>
           <div class="shoot-inp">
@@ -62,20 +44,6 @@
                 </el-select>
               </label>
             </div>
-            <!-- <div class="inp-con">
-              <label for="five">
-                <span class="must">状态</span>
-                <el-select v-model="statusVal" placeholder="请选择">
-                  <el-option
-                    @click.native="selectStatus(item)"
-                    v-for="item in statusArr"
-                    :key="item.name"
-                    :label="item.name"
-                    :value="item.name"
-                  ></el-option>
-                </el-select>
-              </label>
-            </div> -->
             <div class="inp-con found" v-if="power[5035]">
               <button class="addDec1" @click="foundUser">查询</button>
             </div>
@@ -128,30 +96,13 @@
                 align="center"
                 :show-overflow-tooltip="true"
               ></el-table-column>
-              <!-- <el-table-column
-                prop="status"
-                label="状态"
-                height="40"
-                width="180"
-                align="center"
-                :show-overflow-tooltip="true"
-              >
-                <template slot-scope="scope">
-                  <span>{{(scope.row.status == 0 ||  scope.row.status == "禁用") ? "禁用" : "启用"}}</span>
-                </template>
-              </el-table-column> -->
-
-
               <el-table-column fixed="right" label="操作" width="160" height="40" align="center">
                 <template slot-scope="scope">
                   <el-button @click="editRole(scope.row)" type="text" size="small" v-if="power[5025]">编辑</el-button>
                 </template>
               </el-table-column>
             </el-table>
-
-         
           </div>
-
              <div class="slot-box">
               <div class="slot-con">
                 <el-pagination
@@ -244,7 +195,6 @@ export default {
       },
 
       username: "",
-
       dialogKey1: false,
       centerDialogVisible: false,
       currentPage: 1,
@@ -293,158 +243,6 @@ export default {
     this.getOrg();
     this.getPower();
     this.OrgId = JSON.parse(window.sessionStorage.getItem("token")).orgId;
-
-    
-
-    // this.tableData = [
-    //   {
-    //     orgName: "上海市刑侦总队",
-    //     accountName: "adminAccount",
-    //     rolename: "超级管理员",
-    //     description: null,
-    //     telephone: "18645658966",
-    //     updateTime: 1577243006049,
-    //     accessToken: "d11d29fbaee74a379a694ce68396bc6a",
-    //     parentId: "",
-    //     orgId: "otgywab6uqa2g2a5",
-    //     imgURL:
-    //       "http://192.168.1.246/image/api/v1/images/90414d175d05ebf7c15916d107cc59ea",
-    //     accountId: "134ca61f6c95412bb52e7f6c1e2df627",
-    //     extendedProperties: { roleId: "545", name: "超管" },
-    //     tenantName: null,
-    //     createTime: 0,
-    //     tenantId: "otgywab6uqa2g2a5",
-    //     ifSelf: 0,
-    //     name: "超管",
-    //     projectId: "",
-    //     email: "2323@qq.com",
-    //     status: 1
-    //   }
-    // ];
-    // this.data1 = [
-    //   {
-    //     id: 1,
-    //     orgId: "otgywab6uqa2g2a5",
-    //     orgName: "上海市刑侦总队",
-    //     createTime: 1555400472000,
-    //     updateTime: 1575860551783,
-    //     orgDescription: "市局",
-    //     status: "1",
-    //     area: "上海市 虹口区",
-    //     address: "上海市",
-    //     linkman: "张三",
-    //     linkPhone: "15888888885",
-    //     linkEmail: "test@qq.com",
-    //     parentId: "",
-    //     belongOrgName: "上海",
-    //     cStatus: "启用",
-    //     value: "otgywab6uqa2g2a5",
-    //     label: "上海市刑侦总队",
-    //     children: [
-    //       {
-    //         id: 103,
-    //         orgId: "qpkss",
-    //         orgName: "青浦看守所",
-    //         createTime: 1575860689772,
-    //         updateTime: 1575860689772,
-    //         orgDescription: "",
-    //         status: "1",
-    //         area: "上海市 青浦区",
-    //         address: "",
-    //         linkman: "无",
-    //         linkPhone: "18204125563",
-    //         linkEmail: "",
-    //         parentId: "1.",
-    //         belongOrgName: "上海市刑侦总队",
-    //         cStatus: "启用",
-    //         value: "qpkss",
-    //         label: "青浦看守所",
-    //         children: [
-    //           {
-    //             id: 109,
-    //             orgId: "das",
-    //             orgName: "das",
-    //             createTime: 1576575379302,
-    //             updateTime: 1576575379302,
-    //             orgDescription: "",
-    //             status: "1",
-    //             area: "上海市 青浦区",
-    //             address: "",
-    //             linkman: "dasdas",
-    //             linkPhone: "13437160811",
-    //             linkEmail: "",
-    //             parentId: "1.103.",
-    //             belongOrgName: "青浦看守所",
-    //             cStatus: "启用",
-    //             value: "das",
-    //             label: "das",
-    //             children: []
-    //           },
-    //           {
-    //             id: 113,
-    //             orgId: "ewda",
-    //             orgName: "测试",
-    //             createTime: 1582272871524,
-    //             updateTime: 1582272871524,
-    //             orgDescription: "",
-    //             status: "1",
-    //             area: "上海市 青浦区",
-    //             address: "",
-    //             linkman: "da",
-    //             linkPhone: "13566778877",
-    //             linkEmail: "",
-    //             parentId: "1.103.",
-    //             belongOrgName: "青浦看守所",
-    //             cStatus: "启用",
-    //             value: "ewda",
-    //             label: "测试",
-    //             children: []
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         id: 104,
-    //         orgId: "srlpcs",
-    //         orgName: "松润路派出所",
-    //         createTime: 1575860739106,
-    //         updateTime: 1575860739106,
-    //         orgDescription: "",
-    //         status: "1",
-    //         area: "上海市 青浦区",
-    //         address: "",
-    //         linkman: "无",
-    //         linkPhone: "15423695562",
-    //         linkEmail: "",
-    //         parentId: "1.",
-    //         belongOrgName: "上海市刑侦总队",
-    //         cStatus: "启用",
-    //         value: "srlpcs",
-    //         label: "松润路派出所",
-    //         children: []
-    //       },
-    //       {
-    //         id: 111,
-    //         orgId: "TYSKJ01",
-    //         orgName: "天远视科技",
-    //         createTime: 1577434881380,
-    //         updateTime: 1577434881380,
-    //         orgDescription: "",
-    //         status: "1",
-    //         area: "上海市 浦东新区",
-    //         address: "",
-    //         linkman: "张三",
-    //         linkPhone: "15821563214",
-    //         linkEmail: "",
-    //         parentId: "1.",
-    //         belongOrgName: "上海市刑侦总队",
-    //         cStatus: "启用",
-    //         value: "TYSKJ01",
-    //         label: "天远视科技",
-    //         children: []
-    //       }
-    //     ]
-    //   }
-    // ];
   },
 
   methods: {
@@ -477,7 +275,6 @@ export default {
                 });
               }
               VM.set_power({ val: resourceList });
-              // console.log(VM.power[5001]);
             }
           })
           .catch(function(error) {
@@ -526,18 +323,12 @@ export default {
       this.$refs.addUser.orgData = data;
       // this.$refs.addUser.deviceData.orgId = data.orgId;
       // this.$refs.addUser.deviceData.orgName = data.orgName;
-
-      
-
       if(this.OrgId == data.orgId){
          this.getUserList("");
       }else{
          this.getUserList(this.orgId);
-         
       }
       this.getRoleArr(this.orgId)
-      
-      
     },
 
     /**
@@ -659,14 +450,10 @@ export default {
             VM.orgId = data.orgId;
             VM.orgName = data.orgName;
             VM.parentId = data.parentId;
-
             VM.$refs.addUser.orgData = data;
-            // VM.$refs.addUser.deviceData.orgId = data.orgId;
-            // VM.$refs.addUser.deviceData.orgName = data.orgName;
-
             newArr.push(data);
-
-            VM.data1 = newArr;
+            VM.data1 = VM.dellData(newArr);
+            console.log(newArr)
             VM.getRoleArr(VM.orgId);
             VM.getUserList();
 
@@ -675,6 +462,24 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    /**
+     * @Author fyt
+     * @Description 处理树状数据 data1
+     * @Date 2020-05-04 15:10:34 星期一
+     */
+    dellData(data){
+        if(data&&data.length > 0){
+             data.forEach((item)=>{ 
+                    item.expanded = '1.';
+                    if(item.children && item.children.length >0){
+                          item.children.forEach((i)=>{
+                               i.expanded = '1.';
+                          })
+                    }
+             })
+        }
+        return data
     },
     /**
      * @Author fyt
@@ -688,7 +493,6 @@ export default {
         .then(function(res) {
           if (res.data.code === 0) {
             let data = res.data.result.datas;
-            // console.log(data);
             let obj = {
               cKey: "",
               cValue: "",
@@ -699,7 +503,6 @@ export default {
             };
             VM.roleArr = data;
             VM.roleArr.unshift(obj);
-            // console.log(data);
           }
         })
         .catch(function(error) {
@@ -715,13 +518,11 @@ export default {
     handleSizeChange(size) {
       this.pagesize = size;
         if(this.parentId == ""){
-
          this.getUserList("");
       }else{
          this.getUserList(this.orgId);
          
       }
-      // this.getUserList(this.orgId);
     },
     /**
      * @Author fyt
@@ -730,16 +531,11 @@ export default {
      */
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
-
-     
       if(this.parentId == ""){
-
          this.getUserList("");
       }else{
-         this.getUserList(this.orgId);
-         
+         this.getUserList(this.orgId);  
       }
-      //  console.log(this.userdata)
     },
     /**
      * @Author fyt
@@ -747,26 +543,10 @@ export default {
      * @Date 2020-02-27 14:21:35 星期四
      */
     editRole(data) {
-      console.log(data);
-      
       this.addData.key = true;
       this.addData.type = "edit";
       this.$refs.addUser.getUserInfo(data.accountId);
-      this.$refs.addUser.getRoleArr(data.orgId)
-
-      // this.$refs.addUser.deviceData = data;
-      // this.$refs.addUser.saveOrgData = data;
-
-      // this.$refs.addUser.deviceData.accountPasswd = "******";
-      // this.$refs.addUser.roleVal = data.rolename;
-
-
-      // if (data.status == 1) {
-
-      //   this.$refs.addUser.deviceData.status = "启用";
-      // } else {
-      //   this.$refs.addUser.deviceData.status = "禁用";
-      // }
+      this.$refs.addUser.getRoleArr(data.orgId);
     },
     /**
      * @Author fyt

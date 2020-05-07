@@ -15,7 +15,7 @@
         </div> -->
         <div class="detail__box">
           <div class="detail__img">
-            <img :src="`${imgUrl}/${obj.angleImg}`" alt class="img" />
+            <img :src="`data:image/png;base64,${obj.angleImg}`" alt class="img" />
           </div>
           <div class="detail__left">
             <p class="item__box">
@@ -117,6 +117,7 @@ export default {
     };
   },
   computed: {},
+ 
   created() {
     this.imgUrl = window.BASEURL.imgUrl;
     let detail = JSON.parse(localStorage.getItem("detail"));
@@ -125,14 +126,19 @@ export default {
       this.getData();
     }
   },
-  mounted() {},
-  watch: {},
+  beforeDestroy(){
+     this.goBack();
+
+  },
   methods: {
     //返回
     goBack() {
        this.$parent.everyDetailKey = false;
        this.resultArr = [];
        this.$parent.videoHomeKey = true;
+       this.obj = {
+          angleImg: "",
+       }
     },
     goFive() {
       this.oneKey = true;
@@ -163,14 +169,16 @@ export default {
             `/face-task-manager/api/v1/imgRecg?taskId=${VM.obj.taskId}&username=${VM.obj.username}&pageNum=${VM.pageNum}&pageSize=${VM.pageSize}`
         )
         .then(res => {
-          if (res.status == 200) {
+          if (res.status == 200 && res.data.code == 0) {
             let data1 = res.data.result.list;
             VM.resultArr = data1;
-            // console.log(data1);
+          }else{
+            VM.$Message.error(`查看失败!`);
           }
         })
         .catch(function(error) {
-          console.log(error);
+           VM.$Message.error(`图片服务获取图片失败!`);
+           console.log(error);
         });
     },
     close() {

@@ -168,17 +168,7 @@ export default {
       var isObj = true;
       var objLoader = new THREE.OBJLoader2();
       var callbackOnLoad = function(event) {
-        var modelObj = event.detail.loaderRootNode;
-        // VM.camera.position.z = 80;
-        // VM.camera.position.y = 120;
-        // VM.camera.position.x = 30;
-        // modelObj.scale.set(1.9, 1.9, 1.9);
-        // modelObj.children[0].geometry.computeBoundingBox();
-        // modelObj.rotation.x = THREE.Math.degToRad(130);
-        // modelObj.rotation.y = THREE.Math.degToRad(30);
-        // modelObj.rotation.z = THREE.Math.degToRad(-20);
-        // modelObj.children[0].geometry.center();
-      
+      var modelObj = event.detail.loaderRootNode;
         modelObj.scale.set(1.9, 1.9, 1.9);
         modelObj.children[0].geometry.computeBoundingBox();
         modelObj.rotation.x = THREE.Math.degToRad(-88);
@@ -191,7 +181,6 @@ export default {
         VM.camera.position.copy(cameraPos);
         controls.target = lookPos;
         VM.camera.lookAt(lookPos);
-        
         scene.add(modelObj);
        };
         let typeObj = VM.source == '1' ? 'textured' : 'cut';
@@ -403,7 +392,6 @@ export default {
                 obj[encodeURIComponent(k)] = v;
               }
             }
-            console.log(VM.charData)
           }
         })
         .catch(function(error) {
@@ -413,7 +401,6 @@ export default {
 
     //
     onWindowResize(){
-
       if(this.renderer != null){
             this.GLwidth = $("#WebGL-output").width();
             this.GLheight = $("#WebGL-output").height();
@@ -421,10 +408,7 @@ export default {
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(this.GLwidth , this.GLheight );
 
-      }
-      //  console.log( this.GLwidth );
-      //  console.log( this.GLheight );
-           
+      }       
     },
 
     clearRenderer() {

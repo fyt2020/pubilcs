@@ -10,8 +10,6 @@ if (process.env.NODE_ENV == 'development') {
 } else if (process.env.NODE_ENV == 'production') {
   axiosIns.defaults.baseURL = baseOss.ossUrl;
 }
-// console.log(axiosIns.defaults.baseURL)
-
 axiosIns.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
 axiosIns.defaults.headers.get['X-Requested-With'] = 'XMLHttpRequest';
 axiosIns.defaults.responseType = 'json';

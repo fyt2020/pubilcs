@@ -12,7 +12,7 @@
           <div
             :class="['upload__box',{'reged':regImgKey}]"
             v-loading="loading1"
-            element-loading-text="识别中..."
+            :element-loading-text="loadingW"
             element-loading-background="rgba(0, 0, 0, 0.4)"
           >
             <img
@@ -164,6 +164,7 @@ export default {
     return {
       hasUpload: false, //是否上传
       loading1: false, //是否识别
+      loadingW:"识别中...",
       originImgKey: false, //原始图片w>1000
       smallImgKey: false, //原始图片w<1000
       bigHImgKey: false, //原始图片w<1000 h < 562
@@ -333,6 +334,7 @@ export default {
       this.smallImgKey = false;
       this.bigHImgKey = false;
       this.sWbigHImgkey = false;
+      this.loadingW = "识别中..."
 
       clearTimeout(this.timer);
 
@@ -397,6 +399,8 @@ export default {
           }
         })
         .catch(err => {
+          VM.$Message.error(`上传出错,请检查图片服务!`);
+          VM.loadingW = "上传出错,请检查图片服务",
           console.log(err);
         });
     },

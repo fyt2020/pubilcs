@@ -18,8 +18,8 @@
           <el-tree
             :data="data1"
             :props="defaultProps"
-            node-key="parentId"
-            :default-expanded-keys="['','1.']"
+            node-key="expanded"
+            :default-expanded-keys="['1.']"
             :highlight-current="true"
             :expand-on-click-node="false"
             ref="tree1"
@@ -759,164 +759,6 @@ export default {
     getOrgList(DATA) {
       let VM = this;
       let newArr = [];
-      // this.tableData = [
-      //   {
-      //     orgName: "上海市刑侦总队",
-      //     accountName: "adminAccount",
-      //     rolename: "超级管理员",
-      //     description: null,
-      //     telephone: "18645658966",
-      //     updateTime: 1577243006049,
-      //     accessToken: "d11d29fbaee74a379a694ce68396bc6a",
-      //     parentId: "",
-      //     orgId: "otgywab6uqa2g2a5",
-      //     imgURL:
-      //       "http://192.168.1.246/image/api/v1/images/90414d175d05ebf7c15916d107cc59ea",
-      //     accountId: "134ca61f6c95412bb52e7f6c1e2df627",
-      //     extendedProperties: { roleId: "545", name: "超管" },
-      //     tenantName: null,
-      //     createTime: 0,
-      //     tenantId: "otgywab6uqa2g2a5",
-      //     ifSelf: 0,
-      //     name: "超管",
-      //     projectId: "",
-      //     email: "2323@qq.com",
-      //     status: 1
-      //   }
-      // ];
-      // this.data1 = [
-      //   {
-      //     id: 1,
-      //     orgId: "otgywab6uqa2g2a5",
-      //     orgName: "上海市刑侦总队",
-      //     createTime: 1555400472000,
-      //     updateTime: 1575860551783,
-      //     orgDescription: "市局",
-      //     status: "1",
-      //     area: "上海市 虹口区",
-      //     address: "上海市",
-      //     linkman: "张三",
-      //     linkPhone: "15888888885",
-      //     linkEmail: "test@qq.com",
-      //     parentId: "",
-      //     belongOrgName: "上海",
-      //     cStatus: "启用",
-      //     value: "otgywab6uqa2g2a5",
-      //     label: "上海市刑侦总队",
-      //     children: [
-      //       {
-      //         id: 103,
-      //         orgId: "qpkss",
-      //         orgName: "青浦看守所",
-      //         createTime: 1575860689772,
-      //         updateTime: 1575860689772,
-      //         orgDescription: "",
-      //         status: "1",
-      //         area: "上海市 青浦区",
-      //         address: "",
-      //         linkman: "无",
-      //         linkPhone: "18204125563",
-      //         linkEmail: "",
-      //         parentId: "1.",
-      //         belongOrgName: "上海市刑侦总队",
-      //         cStatus: "启用",
-      //         value: "qpkss",
-      //         label: "青浦看守所",
-      //         children: [
-      //           {
-      //             id: 109,
-      //             orgId: "das",
-      //             orgName: "das",
-      //             createTime: 1576575379302,
-      //             updateTime: 1576575379302,
-      //             orgDescription: "",
-      //             status: "1",
-      //             area: "上海市 青浦区",
-      //             address: "",
-      //             linkman: "dasdas",
-      //             linkPhone: "13437160811",
-      //             linkEmail: "",
-      //             parentId: "1.103.",
-      //             belongOrgName: "青浦看守所",
-      //             cStatus: "启用",
-      //             value: "das",
-      //             label: "das",
-      //             children: []
-      //           },
-      //           {
-      //             id: 113,
-      //             orgId: "ewda",
-      //             orgName: "测试",
-      //             createTime: 1582272871524,
-      //             updateTime: 1582272871524,
-      //             orgDescription: "",
-      //             status: "1",
-      //             area: "上海市 青浦区",
-      //             address: "",
-      //             linkman: "da",
-      //             linkPhone: "13566778877",
-      //             linkEmail: "",
-      //             parentId: "1.103.",
-      //             belongOrgName: "青浦看守所",
-      //             cStatus: "启用",
-      //             value: "ewda",
-      //             label: "测试",
-      //             children: []
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         id: 104,
-      //         orgId: "srlpcs",
-      //         orgName: "松润路派出所",
-      //         createTime: 1575860739106,
-      //         updateTime: 1575860739106,
-      //         orgDescription: "",
-      //         status: "1",
-      //         area: "上海市 青浦区",
-      //         address: "",
-      //         linkman: "无",
-      //         linkPhone: "15423695562",
-      //         linkEmail: "",
-      //         parentId: "1.",
-      //         belongOrgName: "上海市刑侦总队",
-      //         cStatus: "启用",
-      //         value: "srlpcs",
-      //         label: "松润路派出所",
-      //         children: []
-      //       },
-      //       {
-      //         id: 111,
-      //         orgId: "TYSKJ01",
-      //         orgName: "天远视科技",
-      //         createTime: 1577434881380,
-      //         updateTime: 1577434881380,
-      //         orgDescription: "",
-      //         status: "1",
-      //         area: "上海市 浦东新区",
-      //         address: "",
-      //         linkman: "张三",
-      //         linkPhone: "15821563214",
-      //         linkEmail: "",
-      //         parentId: "1.",
-      //         belongOrgName: "上海市刑侦总队",
-      //         cStatus: "启用",
-      //         value: "TYSKJ01",
-      //         label: "天远视科技",
-      //         children: []
-      //       }
-      //     ]
-      //   }
-      // ];
-
-      // VM.tableData = VM.data1[0].children;
-      // VM.currentOrg = VM.data1[0];
-      // if (VM.currentOrg.status == "0") {
-      //   this.statusArr = "禁用";
-      // } else if (VM.currentOrg.status == "1") {
-      //   this.statusArr = "启用";
-      // }
-
       this.$http.api
         .get(
           window.BASEURL.testUrl1 +
@@ -929,16 +771,16 @@ export default {
             if (DATA && DATA == "edit") {
               console.log("更新1");
               newArr.push(data);
-              VM.data1 = newArr;
+              VM.data1 = VM.dellData(newArr);
             } else if (DATA) {
               console.log("更新2");
               newArr.push(data);
-              VM.data1 = newArr;
+              VM.data1 = VM.dellData(newArr);
               VM.findOrgById(newArr, DATA);
             } else {
               console.log("初始化");
               newArr.push(data);
-              VM.data1 = newArr;
+              VM.data1 = VM.dellData(newArr);
               VM.getCurOrg(data.id);
               VM.tableData = data.children;
               VM.tableData.forEach((item, index) => {
@@ -950,6 +792,24 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+     /**
+     * @Author fyt
+     * @Description 处理树状数据 data1
+     * @Date 2020-05-04 15:10:34 星期一
+     */
+    dellData(data){
+        if(data&&data.length > 0){
+             data.forEach((item)=>{ 
+                    item.expanded = '1.';
+                    if(item.children && item.children.length >0){
+                          item.children.forEach((i)=>{
+                               i.expanded = '1.';
+                          })
+                    }
+             })
+        }
+        return data
     },
     /**
      * @Author fyt
@@ -1068,7 +928,6 @@ export default {
      * @Date 2020-02-28 10:36:43 星期五
      */
     handleAdd1(data) {
-      // console.log(data)
       this.tipsData.key = true;
       this.tipsData.id = data.id;
       this.tipsData.value = "机构,及该机构下的所有用户!";

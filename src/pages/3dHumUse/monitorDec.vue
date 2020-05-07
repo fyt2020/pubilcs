@@ -484,7 +484,7 @@ export default {
             setTimeout(() => {
               window.history.go(0);
               VM.reSet();
-            }, 1500);
+            }, 1000);
           } else {
             VM.$notify({
               title: "提示",
@@ -512,8 +512,6 @@ export default {
           if (res.status == 200) {
             let data1 = res.data.result;
             VM.videoArr = data1;
-            // console.log(VM.videoArr)
-            // console.log(data1.list)
             if (VM.percent != 100) {
               window.clearTimeout(VM.timer3);
               VM.timer3 = window.setTimeout(VM.getVideoResult(VM.Md5), 10000);
@@ -546,7 +544,6 @@ export default {
       this.$refs.detail.obj = data;
       this.$refs.detail.getData();
       localStorage.setItem("detail", JSON.stringify(data));
-      // this.$router.push({ name: "videoDetail", params: { obj: data } });
     },
     //上传视频事件函数
     uploadFile2() {
@@ -572,7 +569,6 @@ export default {
       }
       this.btnKey = false;
       this.uploading = true;
-      console.log(this.btnKey);
       this.file = document.getElementById("upload_file2").files[0];
       this.chunks = Math.ceil(this.file.size / this.chunkSize);
       this.fileReader = new FileReader();
@@ -672,7 +668,6 @@ export default {
             let resData = Object.keys(res.data.result).length;
             // let {hasFace} = res.data.result;
             // VM.hasFaceArr.push(hasFace);
-
             // let realFrameNum, realFrameNumTime, len, list;
             let len, list;
             if (resData == 0) {
@@ -688,7 +683,6 @@ export default {
               console.log(VM.realFrameNum);
               window.clearTimeout(VM.timer2);
               VM.timer2 = window.setTimeout(VM.queryFather(data), 1000);
-
               if (len == 0) {
                 return;
               }
@@ -700,12 +694,6 @@ export default {
               }
             } else {
               console.log(`相等`);
-              // let hasFaceKey = VM.hasFaceArr.every((item)=>{
-              //    return item === 0
-              // })
-              // if(hasFaceKey){
-              //      VM.$Message.error(`该视频未检测到人脸!`);
-              // }
               VM.changeDiscern({ val: false });
               VM.firstGet = true;
               VM.reging = false;
@@ -734,7 +722,6 @@ export default {
         .then(res => {
           if (res.status == 200) {
             VM.smallArr = res.data.result.list;
-            // console.log(VM.smallArr);
             VM.regImgKey = true;
             VM.sliderKey = true;
             VM.uploading = false;
@@ -773,10 +760,8 @@ export default {
         )
         .then(res => {
           if (res.status == 200) {
-            // console.log(res.data.result.list);
             let id = res.data.result.list[0].id;
             VM.EeveyMd5 = id;
-            // VM.clearCans();
             VM.querySon(id, "frame", drie);
           }
         })
@@ -787,8 +772,8 @@ export default {
     
     //创建容器
     created(Data, Name, File) {
-      // let Url = `v1/AUTH_FS2Face/${Data}_file`
-      let Url = `oss/v1/AUTH_FS2Face/${Data}_file`;
+      let env = process.env.NODE_ENV;
+      let Url = env == 'development' ? `oss/v1/AUTH_FS2Face/${Data}_file`:( window.BASEURL.oss + `${Data}_file`);
       let VM = this;
       VM.$http.api
         .put(
@@ -807,15 +792,15 @@ export default {
           }
         })
         .catch(function(error) {
-          // VM.$Message.error(`创建容器失败`);
-
+          VM.$Message.error(`创建容器失败`);
           console.log(error);
         });
     },
     //上传视频
     upLoad(DATA, NAME, FILE) {
-      // console.log(DATA, NAME, FILE);
-      let Url = `oss/v1/AUTH_FS2Face/${DATA}_file/${NAME}`;
+      let env = process.env.NODE_ENV;
+      let Url = env == 'development' ? `oss/v1/AUTH_FS2Face/${DATA}_file/${NAME}`:( window.BASEURL.oss + `${DATA}_file/${NAME}`);
+      //let Url = `oss/v1/AUTH_FS2Face/${DATA}_file/${NAME}`;
       let VM = this;
       VM.$http.api
         .put(Url, FILE, {
@@ -831,6 +816,7 @@ export default {
           }
         })
         .catch(function(error) {
+          VM.$Message.error(`上传视频失败`);
           console.log(error);
         });
     },
